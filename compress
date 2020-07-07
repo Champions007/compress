@@ -1,0 +1,19 @@
+#!/bin/bash
+
+compress(){
+local ext="${file_name##*.}"
+    case $ext in
+        gz)
+            tar -czf $file_name $file_source;;
+        *)
+            echo "No format to compress files to.";;
+    esac
+}
+
+read -p "Enter name with extension to compress as first argument and source directory as second: " file_name file_source
+if [[ $file_name && $file_source ]]; then
+    compress
+else
+    echo "Enter name and source"   
+fi
+
