@@ -1,6 +1,7 @@
 #!/bin/bash
 #It compresses file.
-compress(){
+
+compress_files(){
 local ext="${file_name##*.}"
     case $ext in
         gz)
@@ -12,10 +13,20 @@ local ext="${file_name##*.}"
     esac
 }
 
+
+execute_program(){
 read -p "Enter name with extension to compress as first argument and source directory as second: " file_name file_source
 if [[ $file_name && $file_source ]]; then
-    compress
+    compress_files
 else
     echo "Enter name and source"   
 fi
-
+}
+    
+if [[ $1 == "--version" ]]; then
+    echo "compress ver. $(pacman -Qi compress | grep -Po '(?<=^Version).*' | sed "s/^\s*: //" )" 
+elif [[ $1 == "" ]]; then
+    execute_program
+else
+    echo "UNKNOWN PREFIX"
+fi
