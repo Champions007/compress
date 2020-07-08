@@ -5,6 +5,8 @@ local ext="${file_name##*.}"
     case $ext in
         gz)
             tar -czf $file_name $file_source;;
+        zip)
+            zip -r $file_name $file_source;;
         *)
             echo "No format to compress files to.";;
     esac
