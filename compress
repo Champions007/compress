@@ -1,13 +1,26 @@
 #!/bin/bash
 #It compresses file.
 
+compress_and_uncompress_zip_files()
+{
+    read -p "What you want to do, (zip) or (unzip) files." action
+    case $action in
+        zip )
+            zip -r $file_name $file_source;;
+        unzip)
+            unzip $file_name -d $file_source;;
+        *)
+            echo "UNKNOWN COMMAND, only (zip) and (unzip) command available";;
+    esac
+}
+
 compress_files(){
 local ext="${file_name##*.}"
     case $ext in
         gz)
             tar -czf $file_name $file_source;;
         zip)
-            zip -r $file_name $file_source;;
+            compress_and_uncompress_zip_files;;
         *)
             echo "No format to compress files to.";;
     esac
