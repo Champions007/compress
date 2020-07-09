@@ -6,9 +6,9 @@ compress_and_uncompress_zip_files()
     read -p "What you want to do, (zip) or (unzip) files." action
     case $action in
         zip )
-            zip -r $file_name $file_source;;
+            [ -e $file_source ] && zip -r $file_name $file_source || echo "File source $file_source doesn't exists, to be zipped to.";;
         unzip)
-            unzip $file_name -d $file_source;;
+            [ -e $file_name ] && unzip $file_name -d $file_source || echo "File $file_name doesn't exists, to be unziped.";;
         *)
             echo "UNKNOWN COMMAND, only (zip) and (unzip) command available";;
     esac
