@@ -6,7 +6,7 @@ compress_and_uncompress_tar_files()
     read -p "What you want to do, (tar) or (untar) files." action
     case $action in
         tar )
-            [ -e $file_source] && tar -czf $file_name $file_source || echo "File source $file_source doesn't exists, to be zipped to.";;
+            [ -e $file_source ] && tar -czf $file_name $file_source || echo "File source $file_source doesn't exists, to be zipped to.";;
         untar)
             [ -e $file_name ] && -xzf $file_name $file_source || echo "File $file_name doesn't exists, to be unziped.";;
         *)
