@@ -1,6 +1,19 @@
 #!/bin/bash
 #It compresses file.
 
+compress_and_uncompress_tar_files()
+{
+    read -p "What you want to do, (tar) or (untar) files." action
+    case $action in
+        tar )
+            [ -e $file_source] && tar -czf $file_name $file_source || echo "File source $file_source doesn't exists, to be zipped to.";;
+        untar)
+            [ -e $file_name ] && -xzf $file_name $file_source || echo "File $file_name doesn't exists, to be unziped.";;
+        *)
+            echo "UNKNOWN COMMAND, only (tar) and (untar) commands available";;
+    esac
+
+}
 compress_and_uncompress_zip_files()
 {
     read -p "What you want to do, (zip) or (unzip) files." action
@@ -10,7 +23,7 @@ compress_and_uncompress_zip_files()
         unzip)
             [ -e $file_name ] && unzip $file_name -d $file_source || echo "File $file_name doesn't exists, to be unziped.";;
         *)
-            echo "UNKNOWN COMMAND, only (zip) and (unzip) command available";;
+            echo "UNKNOWN COMMAND, only (zip) and (unzip) commands available";;
     esac
 }
 
@@ -18,7 +31,7 @@ compress_files(){
 local ext="${file_name##*.}"
     case $ext in
         gz)
-            tar -czf $file_name $file_source;;
+            compress_and_uncompress_tar_files;;
         zip)
             compress_and_uncompress_zip_files;;
         *)
